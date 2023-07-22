@@ -37,7 +37,6 @@ export default function Login() {
       value: `${created.key}+${email}`,
       secure: false,
       httpOnly: false,
-      path: "/",
     });
 
     redirect("/");
