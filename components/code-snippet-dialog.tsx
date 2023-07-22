@@ -16,10 +16,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CodeBlock } from "react-code-blocks";
+import { CodeBlock, dracula, monokai } from "react-code-blocks";
 import { Button } from "./ui/button";
 import { SquareDashedBottomCode } from "lucide-react";
 import React from "react";
+import CopyBlock from "react-code-blocks/dist/components/CopyBlock";
 const selectOptions = [
   {
     value: "bash",
@@ -71,7 +72,42 @@ const CodeSnippetDialog = () => {
           </SelectContent>
         </Select>
         <div className="mt-4">
-          {lang === "bash" ? <CodeBlock text="j" /> : <CodeBlock />}
+          {lang === "bash" ? (
+            <CopyBlock
+              text="j"
+              language={lang}
+              showLineNumbers={false}
+              codeBlock
+              theme={monokai as any}
+              copied
+              wrapLongLines
+              onCopy={() => {}}
+            />
+          ) : lang === "typescript" ? (
+            <CopyBlock
+              text=""
+              language={lang}
+              showLineNumbers={false}
+              codeBlock
+              theme={monokai as any}
+              copied
+              wrapLongLines
+              onCopy={() => {}}
+            />
+          ) : lang === "elixir" ? (
+            <CopyBlock
+              text=""
+              language={lang}
+              showLineNumbers={false}
+              codeBlock
+              theme={monokai as any}
+              copied
+              wrapLongLines
+              onCopy={() => {}}
+            />
+          ) : (
+            <div />
+          )}
         </div>
       </DialogContent>
     </Dialog>
