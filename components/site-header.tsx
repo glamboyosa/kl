@@ -21,7 +21,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     if (window.location.pathname === "/") {
-      setActiveTab("chat");
+      setActiveTab("/chat");
     } else {
       setActiveTab(window.location.pathname as Tabs);
     }
@@ -63,7 +63,7 @@ export function SiteHeader() {
             <Link
               target="_blank"
               rel="noreferrer"
-              href={"https://github.com/glamboyosa/to"}
+              href={"https://github.com/glamboyosa/"}
             >
               <Github />
             </Link>
