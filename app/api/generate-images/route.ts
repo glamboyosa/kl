@@ -45,7 +45,7 @@ export async function POST(req: Request) {
   }
 
   const response = (await openai.createImage({
-    prompt: "a white siamese cat",
+    prompt,
     n: 1,
     size: size as CreateImageRequestSizeEnum,
   })) as any;
