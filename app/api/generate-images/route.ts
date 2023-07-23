@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     size: size as CreateImageRequestSizeEnum,
   });
 
-  const resp = await response.json();
+  const resp: { data: Array<{ url: string }> } = await response.json();
   console.log(resp);
-  return NextResponse.json({ data: resp.data.data, success: true });
+  return NextResponse.json({ data: resp.data, success: true });
 }
