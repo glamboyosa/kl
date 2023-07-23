@@ -16,7 +16,6 @@ const ImageGenerationPrompt = () => {
   const { toast } = useToast();
   const setImages = useGeneratedImages((state) => state.setImages);
   const submitPromptHandler = async () => {
-    console.log(window.location.origin);
     const body = {
       prompt,
       size: `${width}x${height}`,

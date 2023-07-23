@@ -28,7 +28,8 @@ export async function POST(req: Request) {
     size: string;
   } = await req.json();
   const cookie = cookies().get("authCookie");
-
+  console.log(prompt);
+  console.log(size);
   const auth = cookie?.value;
 
   const key = auth?.split("+")[0] as string;
@@ -48,7 +49,6 @@ export async function POST(req: Request) {
     prompt,
     n: 1,
     size: size as CreateImageRequestSizeEnum,
-    response_format: "url",
   })) as any;
   console.log(response);
   return NextResponse.json({ data: response.data.data, success: true });
