@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 
 import { motion } from "framer-motion";
@@ -11,10 +11,11 @@ import { useSearchParams } from "next/navigation";
 
 const tabs = [
   { id: "chat", label: "Chat (Prompt)", link: "/" },
-  { id: "images", label: "Images", link: "/images" },
+  { id: "images", label: "Images", link: "/?images" },
   { id: "auth", label: "Auth", link: "/auth" },
 ];
 export function SiteHeader() {
+  const [mounted, setMounted] = React.useState(false);
   const activeTab = useActiveTab((state) => state.activeTab);
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
   const searchParams = useSearchParams();
@@ -22,7 +23,7 @@ export function SiteHeader() {
   // basically when the UI mounts changes we wanna force a re-render for the dark / light mode to be in sync
   //
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (window.location.pathname === "/" && !tab) {
       setActiveTab("chat");
     } else if (tab === "images") {
@@ -31,7 +32,10 @@ export function SiteHeader() {
       setActiveTab("auth");
     }
   }, [tab]);
-
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return null;
   return (
     <div
       className={
@@ -53,7 +57,7 @@ export function SiteHeader() {
               {activeTab === tab.id && (
                 <motion.span
                   layoutId="bubble"
-                  className="absolute inset-0 z-10 bg-pink 
+                  className="absolute inset-0 z-10 bg-orange-500
                   mix-blend-darken"
                   style={{ borderRadius: 9999 }}
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}

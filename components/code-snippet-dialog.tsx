@@ -16,11 +16,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CodeBlock, dracula, monokai } from "react-code-blocks";
+import { CopyBlock, monokai } from "react-code-blocks";
 import { Button } from "./ui/button";
 import { SquareDashedBottomCode } from "lucide-react";
 import React from "react";
-import CopyBlock from "react-code-blocks/dist/components/CopyBlock";
+
 import useModelFinetune from "@/lib/store/useModelFinetune";
 const selectOptions = [
   {
@@ -38,6 +38,7 @@ const selectOptions = [
 ];
 type SelectUnion = "elixir" | "typescript" | "bash" | undefined;
 const CodeSnippetDialog = () => {
+  const [mounted, setMounted] = React.useState(false);
   const [lang, setLang] = React.useState<SelectUnion>();
   const temperature = useModelFinetune((state) => state.temperature);
   const maxTokens = useModelFinetune((state) => state.maxTokens);
@@ -86,6 +87,10 @@ err ->
   Logger.error(err)
 end
 `;
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return null;
   return (
     <Dialog>
       <DialogTrigger>

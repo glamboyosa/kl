@@ -40,7 +40,7 @@ export function ModelPicker({ models = defaultModels }: ModelPickerProps) {
   const [value, setValue] = React.useState("");
   const setModel = useModelFinetune((state) => state.setModel);
   return (
-    <div className="basis-1/3">
+    <div>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

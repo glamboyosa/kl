@@ -24,7 +24,7 @@ const FineTuneModel = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button variant="outline">Finetune model</Button>
+        <Button className="mt-4" variant="outline">Finetune model</Button>
       </PopoverTrigger>
       <PopoverContent>
         <div className="mb-2">

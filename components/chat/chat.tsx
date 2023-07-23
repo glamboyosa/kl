@@ -1,5 +1,5 @@
 "use client";
-import { Wand2, BrainCog, CornerRightDown } from "lucide-react";
+import { Wand2, BrainCog, CornerRightDown, CornerUpRight } from "lucide-react";
 import { useChat } from "ai/react";
 
 import { Input } from "../ui/input";
@@ -18,22 +18,22 @@ const Chat = () => {
       <ChatSkeleton>
         <Wand2 />
         <form
-          className="flex justify-evenly items-center"
+          className="flex justify-center items-center gap-4"
           onSubmit={handleSubmit}
         >
-          <Input
+          <textarea
             onChange={handleInputChange}
             value={input}
             className="border-none outline-none w-3/4"
             placeholder="Enter a prompt..."
           />
-          <Button
+          <button
             type="submit"
-            className="outline-none bg-transparent flex items-center gap-2"
+            className="outline-none text-sm whitespace-nowrap border-none hover:bg-transparent text-black bg-transparent flex items-center gap-2"
           >
-            <CornerRightDown />
+            <CornerUpRight />
             <span>Say Something</span>
-          </Button>
+          </button>
         </form>
       </ChatSkeleton>
       {messages.length > 0
@@ -55,7 +55,7 @@ const Chat = () => {
 };
 
 const ChatSkeleton = ({ children }: PropsWithChildren) => (
-  <div className="flex p-6 justify-evenly mb-4 rounded-md items-center">
+  <div className="flex shadow-fuller-shadow p-2 gap-6 mb-4 rounded-md items-center">
     {children}
   </div>
 );
