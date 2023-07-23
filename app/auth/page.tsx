@@ -15,7 +15,7 @@ export default function Login() {
     const body = JSON.stringify({
       apiId: env.UNKEY_API_ID,
       prefix: "glam",
-      remaining: 12,
+      remaining: 3,
     });
     const response = await fetch("https://api.unkey.dev/v1/keys", {
       method: "post",
