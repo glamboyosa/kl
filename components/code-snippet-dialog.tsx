@@ -92,15 +92,17 @@ end
   }, []);
   if (!mounted) return null;
   return (
-    <Dialog>
-      <DialogTrigger>
-        {" "}
-        <DialogTrigger asChild>
-          <Button variant="outline" className="flex gap-4 items-center">
-            <span>Generate Code Snippet</span>
-            <SquareDashedBottomCode />
-          </Button>
-        </DialogTrigger>
+    <Dialog onOpenChange={(open) => {
+      if (open === false) {
+        setLang(undefined)
+      }
+    }}>
+      {" "}
+      <DialogTrigger asChild>
+        <Button variant="outline" className="flex gap-4 p-2 items-center">
+          <span>Generate Code Snippet</span>
+          <SquareDashedBottomCode />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

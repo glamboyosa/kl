@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn("antialiased", fontShadowsIntoLight.variable)}>
+      <body className={cn("antialiased", fontShadowsIntoLight.className)}>
         <div className=" flex h-screen flex-col items-center justify-center">
           <SiteHeader />
           <div className="">{children}</div>

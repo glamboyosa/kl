@@ -6,7 +6,7 @@ import Chat from "./chat";
 
 const ChatContainer = () => (
   <>
-    <div>
+    <div className="basis-1/3">
       <ModelPicker />
       <FineTuneModel />
     </div>

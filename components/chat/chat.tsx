@@ -14,7 +14,7 @@ const Chat = () => {
   });
 
   return (
-    <div>
+    <div className="basis-1/3">
       <ChatSkeleton>
         <Wand2 />
         <form

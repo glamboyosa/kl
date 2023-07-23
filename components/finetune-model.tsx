@@ -23,15 +23,19 @@ const FineTuneModel = () => {
   const setMaxTokens = useModelFinetune((state) => state.setMaxTokens);
   return (
     <Popover>
-      <PopoverTrigger>
-        <Button className="mt-4" variant="outline">Finetune model</Button>
+      <PopoverTrigger suppressHydrationWarning>
+        <Button className="mt-4" variant="outline">
+          Finetune model
+        </Button>
       </PopoverTrigger>
-      <PopoverContent>
-        <div className="mb-2">
+      <PopoverContent suppressHydrationWarning>
+        <div suppressHydrationWarning className="mb-2">
           <div className="flex items-center">
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger>Temperature</TooltipTrigger>
+                <TooltipTrigger suppressHydrationWarning>
+                  Temperature
+                </TooltipTrigger>
                 <TooltipContent>
                   <p>Controls the randomness of returned answers.</p>
                 </TooltipContent>
