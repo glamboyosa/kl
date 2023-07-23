@@ -39,7 +39,6 @@ export async function POST(req: Request) {
   const {
     messages,
     temperature,
-    model,
     maxTokens,
   }: {
     messages: ChatCompletionRequestMessage[];
@@ -50,7 +49,7 @@ export async function POST(req: Request) {
   console.log(messages);
   // Ask OpenAI for a streaming chat completion given the prompt
   const response = await openai.createChatCompletion({
-    model,
+    model: "gpt-3.5-turbo",
     stream: true,
     messages,
     temperature,

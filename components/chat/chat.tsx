@@ -27,7 +27,6 @@ const Chat = () => {
       maxTokens,
     },
   });
-
   React.useEffect(() => {
     setActiveTab("chat");
     if (error) {

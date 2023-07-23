@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { env } from "./env.mjs";
 
 export async function middleware(request: NextRequest) {
   const cookie = request.cookies.get("authCookie");
