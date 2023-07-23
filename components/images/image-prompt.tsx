@@ -29,6 +29,9 @@ const ImageGenerationPrompt = () => {
           method: "POST",
           cache: "no-cache",
           body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       const response: GeneratedImageResponse = await resp.json();
