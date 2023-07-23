@@ -15,6 +15,7 @@ const FineTuneImage = () => {
   const setWidth = useModelFinetune((state) => state.setWidth);
   const height = useModelFinetune((state) => state.height);
   const setHeight = useModelFinetune((state) => state.setHeight);
+
   return (
     <div className="mb-4 p-3">
       <div className="flex flex-col mb-3">
@@ -35,9 +36,9 @@ const FineTuneImage = () => {
         </div>
         <Slider
           onValueChange={([val]) => setWidth(val)}
-          defaultValue={[750]}
+          defaultValue={[256]}
           max={1024}
-          step={1}
+          step={256 * 2}
         />
       </div>
 
@@ -55,9 +56,9 @@ const FineTuneImage = () => {
         </div>
         <Slider
           onValueChange={([val]) => setHeight(val)}
-          defaultValue={[920]}
+          defaultValue={[256]}
           max={1024}
-          step={1}
+          step={256 * 2}
         />
       </div>
     </div>

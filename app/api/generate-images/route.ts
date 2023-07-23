@@ -2,6 +2,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import {
   ChatCompletionRequestMessage,
   Configuration,
+  CreateImageRequestSizeEnum,
   OpenAIApi,
 } from "openai-edge";
 import { env } from "@/env.mjs";
@@ -19,6 +20,13 @@ const openai = new OpenAIApi(config);
 export const runtime = "edge";
 
 export async function POST(req: Request) {
+  const {
+    prompt,
+    size,
+  }: {
+    prompt: string;
+    size: string;
+  } = await req.json();
   const cookie = cookies().get("authCookie");
 
   const auth = cookie?.value;
@@ -39,7 +47,7 @@ export async function POST(req: Request) {
   const response = (await openai.createImage({
     prompt: "a white siamese cat",
     n: 1,
-    size: "1024x1024",
+    size: size as CreateImageRequestSizeEnum,
   })) as any;
 
   return NextResponse.json({ data: response.data.data, success: true });
