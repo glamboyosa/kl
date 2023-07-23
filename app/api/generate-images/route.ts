@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     prompt,
     n: 1,
     size: size as CreateImageRequestSizeEnum,
+    response_format: "url",
   })) as any;
-
   return NextResponse.json({ data: response.data.data, success: true });
 }
