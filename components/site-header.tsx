@@ -39,7 +39,7 @@ export function SiteHeader() {
   return (
     <div
       className={
-        "bg-white text-black fixed top-[1vh] z-20 w-auto rounded-md p-2 font-serif  shadow-xl xl:top-[5vh]"
+        "bg-white text-black fixed top-[1vh] z-20 w-auto rounded-md p-2  shadow-xl xl:top-[5vh]"
       }
     >
       <div className="cursor flex space-x-6">

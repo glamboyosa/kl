@@ -92,11 +92,13 @@ end
   }, []);
   if (!mounted) return null;
   return (
-    <Dialog onOpenChange={(open) => {
-      if (open === false) {
-        setLang(undefined)
-      }
-    }}>
+    <Dialog
+      onOpenChange={(open) => {
+        if (open === false) {
+          setLang(undefined);
+        }
+      }}
+    >
       {" "}
       <DialogTrigger asChild>
         <Button variant="outline" className="flex gap-4 p-2 items-center">
@@ -104,7 +106,7 @@ end
           <SquareDashedBottomCode />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="p-4">
         <DialogHeader>
           <DialogTitle>Copy Code Snippet</DialogTitle>
           <DialogDescription>
@@ -126,7 +128,7 @@ end
             </SelectGroup>
           </SelectContent>
         </Select>
-        <div className="mt-4">
+        <div className="mt-4 font-mono">
           {lang === "bash" ? (
             <CopyBlock
               text={curlLang}
