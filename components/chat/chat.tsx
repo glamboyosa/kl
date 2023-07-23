@@ -7,11 +7,13 @@ import { Button } from "../ui/button";
 import React, { PropsWithChildren } from "react";
 import useModelFinetune from "@/lib/store/useModelFinetune";
 import { useToast } from "../ui/use-toast";
+import useActiveTab from "@/lib/store/useActiveTab";
 type ChatSkeleton = {
   from?: "user" | "assistant";
 };
 const Chat = () => {
   const { toast } = useToast();
+  const setActiveTab = useActiveTab((state) => state.setActiveTab);
 
   const temperature = useModelFinetune((state) => state.temperature);
   const maxTokens = useModelFinetune((state) => state.maxTokens);
@@ -27,6 +29,7 @@ const Chat = () => {
   });
 
   React.useEffect(() => {
+    setActiveTab("chat");
     if (error) {
       toast({
         title: "Uh Oh! Limit exceeded",

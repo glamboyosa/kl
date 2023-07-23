@@ -20,8 +20,6 @@ export function SiteHeader() {
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab") as "images";
-  // basically when the UI mounts changes we wanna force a re-render for the dark / light mode to be in sync
-  //
 
   React.useEffect(() => {
     if (window.location.pathname === "/" && !tab) {
