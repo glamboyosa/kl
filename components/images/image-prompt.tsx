@@ -28,7 +28,7 @@ const ImageGenerationPrompt = () => {
     }
   };
   return (
-    <div className="basis-1/3 p-3 mb-3">
+    <div className="basis-1/3 flex flex-col p-3 mb-3">
       <div className="flex flex-col">
         <h1 className="text-md md:text-xl">Prompt</h1>
         <p>What do you want to see?</p>
@@ -47,7 +47,7 @@ const ImageGenerationPrompt = () => {
         className="mt-4"
         variant={"outline"}
       >
-        Generate
+        Generate Image
       </Button>
     </div>
   );
