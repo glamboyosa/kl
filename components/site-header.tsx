@@ -7,25 +7,30 @@ import { motion } from "framer-motion";
 import { Github } from "lucide-react";
 
 import useActiveTab, { Tabs } from "@/lib/store/useActiveTab";
+import { useSearchParams } from "next/navigation";
 
 const tabs = [
-  { id: "home", label: "Home", link: "/" },
-  { id: "enhancer", label: "Enhancer", link: "/enhancer" },
+  { id: "chat", label: "Chat (Prompt)", link: "/" },
+  { id: "images", label: "Images", link: "/images" },
+  { id: "auth", label: "Auth", link: "/auth" },
 ];
 export function SiteHeader() {
   const activeTab = useActiveTab((state) => state.activeTab);
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
-
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab") as "images";
   // basically when the UI mounts changes we wanna force a re-render for the dark / light mode to be in sync
   //
 
   useEffect(() => {
-    if (window.location.pathname === "/") {
-      setActiveTab("/chat");
+    if (window.location.pathname === "/" && !tab) {
+      setActiveTab("chat");
+    } else if (tab === "images") {
+      setActiveTab("images");
     } else {
-      setActiveTab(window.location.pathname as Tabs);
+      setActiveTab("auth");
     }
-  }, []);
+  }, [tab]);
 
   return (
     <div
