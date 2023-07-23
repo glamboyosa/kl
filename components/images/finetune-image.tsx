@@ -28,7 +28,7 @@ const FineTuneImage = () => {
             <Tooltip>
               <TooltipTrigger>Width</TooltipTrigger>
               <TooltipContent>
-                <p>The max width from 200-1024</p>
+                <p>The max width either 256, 512, or 1024</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -48,7 +48,7 @@ const FineTuneImage = () => {
             <Tooltip>
               <TooltipTrigger>Height</TooltipTrigger>
               <TooltipContent>
-                <p>The height of the image from 200-1024</p>
+                <p>The height of the image either 256, 512, or 1024</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
