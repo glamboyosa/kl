@@ -45,11 +45,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const response = (await openai.createImage({
+  const response = await openai.createImage({
     prompt,
     n: 1,
     size: size as CreateImageRequestSizeEnum,
-  })) as any;
-  console.log(response);
-  return NextResponse.json({ data: response.data.data, success: true });
+  });
+
+  const resp = await response.json();
+  console.log(resp);
+  return NextResponse.json({ data: resp.data.data, success: true });
 }
