@@ -39,7 +39,11 @@ const selectOptions = [
   },
 ];
 type SelectUnion = "elixir" | "typescript" | "bash" | undefined;
-const CodeSnippetDialog = () => {
+
+type CodeSnippetDialogProps = {
+  from?: "image";
+};
+const CodeSnippetDialog = ({ from }: CodeSnippetDialogProps) => {
   const [mounted, setMounted] = React.useState(false);
   const [lang, setLang] = React.useState<SelectUnion>();
   const { toast } = useToast();
@@ -47,11 +51,14 @@ const CodeSnippetDialog = () => {
   const temperature = useModelFinetune((state) => state.temperature);
   const maxTokens = useModelFinetune((state) => state.maxTokens);
   const model = useModelFinetune((state) => state.model);
+  const width = useModelFinetune((state) => state.width);
+  const height = useModelFinetune((state) => state.height);
 
   const title = "Copy Successful ✨";
   const description = `Successfully copied ${
     lang === "bash" ? "cURL" : lang
   } snippet.`;
+
   const TSLang = `
     const klu = new KluAI({token: process.env.KLUAI_TOKEN})
 
@@ -60,6 +67,15 @@ const CodeSnippetDialog = () => {
       prompt: '<YOUR-PROMPT>',
       max_tokens: ${maxTokens},
       temperature: ${temperature},
+    })
+  `;
+  const TSLangImg = `
+    const klu = new KluAI({token: process.env.KLUAI_TOKEN})
+
+    const response = await klu.createImage({
+      prompt: '<YOUR-PROMPT>',
+      width: ${width},
+      height: ${height}
     })
   `;
 
@@ -73,6 +89,17 @@ const CodeSnippetDialog = () => {
   "prompt": '<YOUR-PROMPT>',
   "max_tokens": ${maxTokens},
   "temperature": ${temperature},
+}'
+  `;
+  const curlLangImg = `
+  curl --request POST \
+  --url https://api.klu.ai/v1/image-creation \
+  --header 'Authorization: Bearer <TOKEN>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "prompt": '<YOUR-PROMPT>',
+    "width": ${width},
+    "height": ${height}
 }'
   `;
 
@@ -89,7 +116,25 @@ KluAIElixirSDK.create_chat_completion(%{
   "temperature": ${temperature},
   })
 
-Logger.info(opts)
+Logger.info(resp)
+catch
+err ->
+  Logger.error(err)
+end
+`;
+  const elixirLangImg = `
+{:ok, _pid} = KluAIElixirSDK.start_link(%{token: "<YOUR-KLU-AI-TOKEN>"})
+
+try do
+
+resp =
+KluAIElixirSDK.create_image(%{
+  "prompt": '<YOUR-PROMPT>',
+  "width": ${width},
+  "height": ${height}
+  })
+
+Logger.info(resp)
 catch
 err ->
   Logger.error(err)
@@ -139,7 +184,7 @@ end
         <div className="mt-4 font-mono">
           {lang === "bash" ? (
             <CopyBlock
-              text={curlLang}
+              text={from === "image" ? curlLangImg : curlLang}
               language={lang}
               showLineNumbers={false}
               codeBlock
@@ -155,7 +200,7 @@ end
             />
           ) : lang === "typescript" ? (
             <CopyBlock
-              text={TSLang}
+              text={from === "image" ? TSLangImg : TSLang}
               language={lang}
               showLineNumbers={false}
               codeBlock
@@ -171,7 +216,7 @@ end
             />
           ) : lang === "elixir" ? (
             <CopyBlock
-              text={elixirLang}
+              text={from === "image" ? elixirLangImg : elixirLang}
               language={lang}
               showLineNumbers={false}
               codeBlock
