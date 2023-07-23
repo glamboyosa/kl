@@ -50,5 +50,6 @@ export async function POST(req: Request) {
     size: size as CreateImageRequestSizeEnum,
     response_format: "url",
   })) as any;
+  console.log(response);
   return NextResponse.json({ data: response.data.data, success: true });
 }

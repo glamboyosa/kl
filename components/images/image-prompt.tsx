@@ -6,12 +6,14 @@ import useModelFinetune from "@/lib/store/useModelFinetune";
 import useGeneratedImages, {
   GeneratedImageResponse,
 } from "@/lib/store/useGeneratedImages";
+import { useToast } from "../ui/use-toast";
 
 const ImageGenerationPrompt = () => {
   const [prompt, setPrompt] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const width = useModelFinetune((state) => state.width);
   const height = useModelFinetune((state) => state.height);
+  const { toast } = useToast();
   const setImages = useGeneratedImages((state) => state.setImages);
   const submitPromptHandler = async () => {
     console.log(window.location.origin);
@@ -20,15 +22,27 @@ const ImageGenerationPrompt = () => {
       size: `${width}x${height}`,
     };
     setLoading(true);
-    const resp = await fetch(`${window.location.origin}/api/generate-images`, {
-      method: "POST",
-      cache: "no-cache",
-      body: JSON.stringify(body),
-    });
-    const response: GeneratedImageResponse = await resp.json();
-    if (response.success) {
-      setImages(response.data);
+    try {
+      const resp = await fetch(
+        `${window.location.origin}/api/generate-images`,
+        {
+          method: "POST",
+          cache: "no-cache",
+          body: JSON.stringify(body),
+        }
+      );
+      const response: GeneratedImageResponse = await resp.json();
+      if (response.success) {
+        setImages(response.data);
+        setLoading(false);
+      }
+    } catch (error) {
       setLoading(false);
+      toast({
+        title: "Uh Oh! Something Went Wrong",
+        description:
+          "Looks like there is an error from OpenAI. Please try again",
+      });
     }
   };
   return (
