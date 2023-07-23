@@ -5,16 +5,26 @@ import { useChat } from "ai/react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PropsWithChildren } from "react";
+import useModelFinetune from "@/lib/store/useModelFinetune";
 type ChatSkeleton = {
   from?: "user" | "assistant";
 };
 const Chat = () => {
+  const temperature = useModelFinetune((state) => state.temperature);
+  const maxTokens = useModelFinetune((state) => state.maxTokens);
+  const model = useModelFinetune((state) => state.model);
+
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/completions",
+    body: {
+      temperature,
+      model,
+      maxTokens,
+    },
   });
 
   return (
-    <div className="basis-1/3">
+    <div className="basis-1/3 p-3 max-h-[75%] overflow-y-scroll">
       <ChatSkeleton>
         <Wand2 />
         <form
@@ -39,12 +49,25 @@ const Chat = () => {
       {messages.length > 0
         ? messages.map((message) => (
             <ChatSkeleton key={message.id}>
-              <BrainCog fill={"#1212"} stroke="#f3f3f3" />
+              {message.role === "user" ? (
+                <Wand2 />
+              ) : (
+                <BrainCog
+                  width={50}
+                  height={50}
+                  fill={"#ffffff"}
+                  stroke="#121212"
+                />
+              )}
+
               <div className="p-3">
                 <div className="mb-2">{message.content}</div>
                 <span>
-                  `${new Date(message.createdAt as Date).toLocaleTimeString()} $
-                  {new Date(message.createdAt as Date).toLocaleDateString()}`
+                  {`${new Date(
+                    message.createdAt as Date
+                  ).toLocaleTimeString()} ${new Date(
+                    message.createdAt as Date
+                  ).toLocaleDateString()}`}
                 </span>
               </div>
             </ChatSkeleton>

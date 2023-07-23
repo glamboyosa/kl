@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="h-screen flex justify-center items-center gap-10">
+    <main className="h-screen overflow-y-scroll flex justify-center items-center gap-10">
       <ChatContainer />
     </main>
   );
