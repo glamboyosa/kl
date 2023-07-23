@@ -21,6 +21,7 @@ import { Button } from "./ui/button";
 import { SquareDashedBottomCode } from "lucide-react";
 import React from "react";
 import CopyBlock from "react-code-blocks/dist/components/CopyBlock";
+import useModelFinetune from "@/lib/store/useModelFinetune";
 const selectOptions = [
   {
     value: "bash",
@@ -38,6 +39,53 @@ const selectOptions = [
 type SelectUnion = "elixir" | "typescript" | "bash" | undefined;
 const CodeSnippetDialog = () => {
   const [lang, setLang] = React.useState<SelectUnion>();
+  const temperature = useModelFinetune((state) => state.temperature);
+  const maxTokens = useModelFinetune((state) => state.maxTokens);
+  const model = useModelFinetune((state) => state.model);
+
+  const TSLang = `
+    const klu = new KluAI({token: process.env.KLUAI_TOKEN})
+
+    const response = await klu.createChatCompletion({
+      model: '${model}',
+      prompt: '<YOUR-PROMPT>',
+      max_tokens: ${maxTokens},
+      temperature: ${temperature},
+    })
+  `;
+
+  const curlLang = `
+  curl --request POST \
+  --url https://api.klu.ai/v1/chat-creation \
+  --header 'Authorization: Bearer <TOKEN>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"model": ${model},
+  "prompt": '<YOUR-PROMPT>',
+  "max_tokens": ${maxTokens},
+  "temperature": ${temperature},
+}'
+  `;
+
+  const elixirLang = `
+{:ok, _pid} = KluAIElixirSDK.start_link(%{token: "<YOUR-KLU-AI-TOKEN>"})
+
+try do
+
+resp =
+KluAIElixirSDK.create_chat_completion(%{
+  "model": ${model},
+  "prompt": '<YOUR-PROMPT>',
+  "max_tokens": ${maxTokens},
+  "temperature": ${temperature},
+  })
+
+Logger.info(opts)
+catch
+err ->
+  Logger.error(err)
+end
+`;
   return (
     <Dialog>
       <DialogTrigger>
@@ -74,7 +122,7 @@ const CodeSnippetDialog = () => {
         <div className="mt-4">
           {lang === "bash" ? (
             <CopyBlock
-              text="j"
+              text={curlLang}
               language={lang}
               showLineNumbers={false}
               codeBlock
@@ -85,7 +133,7 @@ const CodeSnippetDialog = () => {
             />
           ) : lang === "typescript" ? (
             <CopyBlock
-              text=""
+              text={TSLang}
               language={lang}
               showLineNumbers={false}
               codeBlock
@@ -96,7 +144,7 @@ const CodeSnippetDialog = () => {
             />
           ) : lang === "elixir" ? (
             <CopyBlock
-              text=""
+              text={elixirLang}
               language={lang}
               showLineNumbers={false}
               codeBlock

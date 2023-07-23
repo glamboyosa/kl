@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import useModelFinetune from "@/lib/store/useModelFinetune";
 
 const defaultModels = [
   {
@@ -37,7 +38,7 @@ type ModelPickerProps = {
 export function ModelPicker({ models = defaultModels }: ModelPickerProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-
+  const setModel = useModelFinetune((state) => state.setModel);
   return (
     <div className="basis-1/3">
       <Popover open={open} onOpenChange={setOpen}>
@@ -64,6 +65,7 @@ export function ModelPicker({ models = defaultModels }: ModelPickerProps) {
                   key={model.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
+                    setModel(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
