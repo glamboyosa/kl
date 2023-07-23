@@ -4,17 +4,20 @@ import { useChat } from "ai/react";
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import useModelFinetune from "@/lib/store/useModelFinetune";
+import { useToast } from "../ui/use-toast";
 type ChatSkeleton = {
   from?: "user" | "assistant";
 };
 const Chat = () => {
+  const { toast } = useToast();
+
   const temperature = useModelFinetune((state) => state.temperature);
   const maxTokens = useModelFinetune((state) => state.maxTokens);
   const model = useModelFinetune((state) => state.model);
 
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, error } = useChat({
     api: "/api/completions",
     body: {
       temperature,
@@ -22,6 +25,15 @@ const Chat = () => {
       maxTokens,
     },
   });
+
+  React.useEffect(() => {
+    if (error) {
+      toast({
+        title: "Uh Oh! Limit exceeded",
+        description: `You've used up all your available tokens, Please consider buying some more.`,
+      });
+    }
+  }, [error]);
 
   return (
     <div className="basis-1/3 p-3 max-h-[75%] overflow-y-scroll">
