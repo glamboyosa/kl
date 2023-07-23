@@ -19,6 +19,8 @@ import {
 import { CopyBlock, monokai } from "react-code-blocks";
 import { Button } from "./ui/button";
 import { SquareDashedBottomCode } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+
 import React from "react";
 
 import useModelFinetune from "@/lib/store/useModelFinetune";
@@ -40,10 +42,16 @@ type SelectUnion = "elixir" | "typescript" | "bash" | undefined;
 const CodeSnippetDialog = () => {
   const [mounted, setMounted] = React.useState(false);
   const [lang, setLang] = React.useState<SelectUnion>();
+  const { toast } = useToast();
+
   const temperature = useModelFinetune((state) => state.temperature);
   const maxTokens = useModelFinetune((state) => state.maxTokens);
   const model = useModelFinetune((state) => state.model);
 
+  const title = "Copy Successful ✨";
+  const description = `Successfully copied ${
+    lang === "bash" ? "cURL" : lang
+  } snippet.`;
   const TSLang = `
     const klu = new KluAI({token: process.env.KLUAI_TOKEN})
 
@@ -138,7 +146,12 @@ end
               theme={monokai as any}
               copied
               wrapLongLines
-              onCopy={() => {}}
+              onCopy={() => {
+                toast({
+                  title,
+                  description,
+                });
+              }}
             />
           ) : lang === "typescript" ? (
             <CopyBlock
@@ -149,7 +162,12 @@ end
               theme={monokai as any}
               copied
               wrapLongLines
-              onCopy={() => {}}
+              onCopy={() => {
+                toast({
+                  title,
+                  description,
+                });
+              }}
             />
           ) : lang === "elixir" ? (
             <CopyBlock
@@ -160,7 +178,12 @@ end
               theme={monokai as any}
               copied
               wrapLongLines
-              onCopy={() => {}}
+              onCopy={() => {
+                toast({
+                  title,
+                  description,
+                });
+              }}
             />
           ) : (
             <div />

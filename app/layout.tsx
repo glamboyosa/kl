@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { fontShadowsIntoLight } from "@/lib/fonts";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <div className=" flex h-screen flex-col items-center justify-center">
           <SiteHeader />
           <div className="">{children}</div>
+          <Toaster />
         </div>
       </body>
     </html>
