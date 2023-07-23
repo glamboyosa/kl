@@ -9,16 +9,28 @@ const Images = () => {
   const height = useModelFinetune((state) => state.height);
   const images = useGeneratedImages((state) => state.images);
   return (
-    <>
-      {images.length > 0 && (
+    <div className="basis-1/3 p-3">
+      {images.length > 0 ? (
         <Image
           width={width}
           height={height}
           src={images[0].url}
           alt="Your AI generated image"
         />
+      ) : (
+        <div>
+          <h1 className="text-lg md:text-xl">No Images Generated Yet...</h1>
+          <Image
+            src={
+              "https://illustrations.popsy.co/white/page-under-construction.svg"
+            }
+            width={width}
+            height={height}
+            alt="image"
+          />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

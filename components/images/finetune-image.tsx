@@ -16,9 +16,9 @@ const FineTuneImage = () => {
   const height = useModelFinetune((state) => state.height);
   const setHeight = useModelFinetune((state) => state.setHeight);
   return (
-    <div className="mb-2">
-      <div className="flex flex-col">
-        <h1 className="text-md md:text-xl">Image Dimensions</h1>
+    <div className="mb-4 p-3">
+      <div className="flex flex-col mb-3">
+        <h1 className="text-md md:text-xl mt-1">Image Dimensions</h1>
         <p>Dimensions of the finished image</p>
       </div>
       <div className="mb-2">

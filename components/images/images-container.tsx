@@ -9,7 +9,7 @@ const ImageContainer = () => {
     <>
       <ImageGenerationPrompt />
       <Images />
-      <div>
+      <div className="basis-1/3">
         <FineTuneImage />
         <CodeSnippetDialog from="image" />
       </div>

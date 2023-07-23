@@ -37,13 +37,14 @@ const ImageGenerationPrompt = () => {
         value={prompt}
         name="prompt-text-area"
         onChange={(e) => setPrompt(e.target.value)}
-        cols={30}
-        rows={30}
+        cols={20}
+        rows={15}
+        className="border border-black mt-3"
         placeholder="A siamese cat with freckles"
       />
       <Button
         onClick={submitPromptHandler}
-        className="mt-60"
+        className="mt-4"
         variant={"outline"}
       >
         Generate
