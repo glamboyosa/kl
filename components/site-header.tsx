@@ -11,25 +11,21 @@ import { useSearchParams } from "next/navigation";
 
 const tabs = [
   { id: "chat", label: "Chat (Prompt)", link: "/" },
-  { id: "images", label: "Images", link: "/?images" },
+  { id: "images", label: "Images", link: "/images" },
   { id: "auth", label: "Auth", link: "/auth" },
 ];
 export function SiteHeader() {
   const [mounted, setMounted] = React.useState(false);
   const activeTab = useActiveTab((state) => state.activeTab);
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
-  const searchParams = useSearchParams();
-  const tab = searchParams.get("tab") as "images";
 
   React.useEffect(() => {
-    if (window.location.pathname === "/" && !tab) {
+    if (window.location.pathname === "/") {
       setActiveTab("chat");
-    } else if (tab === "images") {
-      setActiveTab("images");
     } else {
-      setActiveTab("auth");
+      setActiveTab(window.location.pathname as Tabs);
     }
-  }, [tab]);
+  }, []);
   React.useEffect(() => {
     setMounted(true);
   }, []);
