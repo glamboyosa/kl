@@ -33,7 +33,16 @@ const ImageGenerationPrompt = () => {
           },
         }
       );
+      if (resp.status === 401) {
+        toast({
+          title: "Uh Oh! Limit exceeded",
+          description: `You've used up all your available tokens, Please consider buying some more.`,
+        });
+        setLoading(false);
+        return;
+      }
       const response: GeneratedImageResponse = await resp.json();
+
       if (response.success) {
         setImages(response.data);
         setLoading(false);
