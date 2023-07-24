@@ -35,6 +35,14 @@ yarn install
 pnpm install
 ```
 
+## Run app
+
+To run:
+
+```bash
+npm run dev
+```
+
 ## Architecture
 
 The architecture is as follows:
